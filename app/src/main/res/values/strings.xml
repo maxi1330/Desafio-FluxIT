@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">DesafioFluxIT</string>
+
+    <string name="namePet">Nombre</string>
+    <string name="idPet">Matricula</string>
+    <string name="namePetCellRecycler">Nombre: </string>
+    <string name="idPetCellRecycler">Matricula: </string>
+
+    <string name="titleDetail">Detalle</string>
+    <string name="titleBussines">Sucursales</string>
+    <string name="titleDefaultToolbar">Desafio Flux IT</string>
+
+    <string name="messageNoConnectionAvailable">No hay conexion disponible</string>
+    <string name="messageTryAgain">Error, vuelva a intentarlo</string>
+    <string name="messageSuccess">Exito</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDNYoBVy-TpTurquf2rywdiKgAQ-K8uUlE</string>
+</resources>

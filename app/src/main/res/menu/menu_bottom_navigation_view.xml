@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigationIconPetDetail"
+        android:icon="@drawable/ic_pets_black_24dp"
+        android:title="@string/titleDetail" />
+
+    <item
+        android:id="@+id/navigationIconBusiness"
+        android:icon="@drawable/ic_store_mall_directory_black_24dp"
+        android:title="@string/titleBussines" />
+
+</menu>
