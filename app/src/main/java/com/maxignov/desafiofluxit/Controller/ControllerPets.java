@@ -5,9 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
-import com.maxignov.desafiofluxit.ListenerCustom;
-import com.maxignov.desafiofluxit.Model.DaoRetrofit;
-import com.maxignov.desafiofluxit.Model.Pet;
+import com.maxignov.desafiofluxit.Utils.ListenerCustom;
+import com.maxignov.desafiofluxit.Model.DaoModel.DaoRetrofit;
+import com.maxignov.desafiofluxit.Model.PojoModel.Pet;
 import com.maxignov.desafiofluxit.R;
 
 import java.util.List;
@@ -19,6 +19,7 @@ public class ControllerPets {
         this.context = context;
     }
 
+    //Solicita las mascotas por estado
     public void requestPetFindByStatus(final ListenerCustom<List<Pet>> listenerView, String status) {
         if(internetAvailable()){
             DaoRetrofit daoRetrofit = new DaoRetrofit();
@@ -34,6 +35,7 @@ public class ControllerPets {
         }
     }
 
+    //Solicita la mascota por ID
     public void requestPetFindById(final ListenerCustom<Pet> listenerView, String id) {
         if(internetAvailable()) {
             DaoRetrofit daoRetrofit = new DaoRetrofit();
@@ -49,6 +51,7 @@ public class ControllerPets {
         }
     }
 
+    //Verifica que haya conexion a internet
     private boolean internetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

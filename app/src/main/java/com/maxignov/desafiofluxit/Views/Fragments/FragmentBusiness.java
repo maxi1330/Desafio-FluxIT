@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,26 +37,25 @@ public class FragmentBusiness extends Fragment implements OnMapReadyCallback {
 
     private static final int LOCATION_REQUEST_CODE = 1;
 
-
     public FragmentBusiness() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_business, container, false);
-        mapView = v.findViewById(R.id.map);
+        initViews(v);
 
-        if (mapView != null) {
-            mapView.onCreate(null);
-            mapView.onResume();
-            mapView.getMapAsync(this);
-        }
+        mapView.onCreate(null);
+        mapView.onResume();
+        mapView.getMapAsync(this);
 
         return v;
+    }
+
+    private void initViews(View v){
+        mapView = v.findViewById(R.id.map);
     }
 
     @Override
@@ -63,15 +63,20 @@ public class FragmentBusiness extends Fragment implements OnMapReadyCallback {
         MapsInitializer.initialize(getContext());
         gMap = googleMap;
         gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
+        //Por defecto centra la camara en la sucursal de la plata
+        gMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.builder()
+                .target(new LatLng(-34.9208142, -57.9518059))
+                .zoom(10).build()));
+        //Añado marcador de la sucursal de Buenos Aires
         gMap.addMarker(new MarkerOptions()
                 .position(new LatLng(-34.6188126, -58.3677217))
                 .title("Sucursal - Buenos Aires"));
+        //Añado marcador de la sucursal de La Plata
         gMap.addMarker(new MarkerOptions()
                 .position(new LatLng(-34.9208142, -57.9518059))
                 .title("Sucursal - La Plata"));
 
-        gMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.builder().target(new LatLng(-34.9208142, -57.9518059)).zoom(9).build()));
+        //Si tengo los permisos necesarios, muestro mi ubicacion en el mapa, sino los solicito.
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             gMap.setMyLocationEnabled(true);
@@ -87,12 +92,14 @@ public class FragmentBusiness extends Fragment implements OnMapReadyCallback {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == LOCATION_REQUEST_CODE) {
+            //Si tengo los permisos son aceptados, pongo mi ubicacion en el mapa, sino informo el error.
             if (permissions.length > 0 &&
                     permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION) &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     gMap.setMyLocationEnabled(true);
             } else {
-                Toast.makeText(getContext(), "Error al solicitar permisos.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.deniedPermits), Toast.LENGTH_LONG).show();
+                Log.e("FragmentBussines","No se tiene permisos para obtener la ubicacion");
             }
         }
     }

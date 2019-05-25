@@ -13,10 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.maxignov.desafiofluxit.Constants;
+import com.maxignov.desafiofluxit.Utils.Constants;
 import com.maxignov.desafiofluxit.Controller.ControllerPets;
-import com.maxignov.desafiofluxit.ListenerCustom;
-import com.maxignov.desafiofluxit.Model.Pet;
+import com.maxignov.desafiofluxit.Utils.ListenerCustom;
+import com.maxignov.desafiofluxit.Model.PojoModel.Pet;
 import com.maxignov.desafiofluxit.R;
 import com.maxignov.desafiofluxit.Views.Fragments.FragmentBusiness;
 import com.maxignov.desafiofluxit.Views.Fragments.FragmentPetDetail;
@@ -59,6 +59,7 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
+    //Llamo al controlador, solicitando la mascota, creo el fragmentoDetalle y lo muestro.
     private void requestFindByStatus(String id){
         progressBarDetailActivity.setVisibility(View.VISIBLE);
         ListenerCustom<Pet> listenerView = new ListenerCustom<Pet>() {
@@ -77,6 +78,7 @@ public class DetailActivity extends AppCompatActivity {
         controllerPets.requestPetFindById(listenerView,id);
     }
 
+    //Setea el fragmento que llega por parametro al contenedor de fragmentos
     private void setFragment(Fragment fragment){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -84,6 +86,7 @@ public class DetailActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    //Setea la toolbar con los valores por defecto
     private void setToolbar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -93,6 +96,7 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    //Setea nuevos datos en la toolbar (logo y titulo)
     private void setDataInToolbar(int logo, String title){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -100,6 +104,7 @@ public class DetailActivity extends AppCompatActivity {
         toolbar.setTitle(title);
     }
 
+    //Inicia las vistas
     private void initViews(){
         toolbar = findViewById(R.id.my_toolbar);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -107,10 +112,10 @@ public class DetailActivity extends AppCompatActivity {
         progressBarDetailActivity = findViewById(R.id.progressBarDetailActivity);
     }
 
+    //Listener del BottomNavigationView
     private BottomNavigationView.OnNavigationItemSelectedListener listenerBottomNavigation = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
             switch (menuItem.getItemId()) {
                 case R.id.navigationIconPetDetail:
                     setDataInToolbar(R.drawable.ic_pets_black_24dp,(getResources().getString(R.string.titleDetail)));

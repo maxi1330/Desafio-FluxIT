@@ -14,8 +14,9 @@
     <string name="messageTryAgain">Error, vuelva a intentarlo</string>
     <string name="messageSuccess">Exito</string>
 
-    <string name="unnamed">Sin nombre</string>
-    <string name="withoutId">Sin matricula</string>
+    <string name="unnamed">Aun sin nombre</string>
+    <string name="withoutId">Aun sin nombre</string>
+    <string name="deniedPermits">Error. Falta de permisos</string>
 
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDNYoBVy-TpTurquf2rywdiKgAQ-K8uUlE</string>

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.maxignov.desafiofluxit.Model.Pet;
+import com.maxignov.desafiofluxit.Model.PojoModel.Pet;
 import com.maxignov.desafiofluxit.R;
 
 import java.util.ArrayList;
@@ -17,10 +17,12 @@ import java.util.List;
 public class AdapterPetsList extends RecyclerView.Adapter {
     private List<Pet> petList;
     private PetSelectedInterface petSelectedInterface;
+    private Context context;
 
-    public AdapterPetsList(PetSelectedInterface petSelectedInterface) {
+    public AdapterPetsList(PetSelectedInterface petSelectedInterface, Context context) {
         this.petSelectedInterface = petSelectedInterface;
         petList = new ArrayList<>();
+        this.context = context;
     }
 
     @NonNull
@@ -30,7 +32,6 @@ public class AdapterPetsList extends RecyclerView.Adapter {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View cellInflated = layoutInflater.inflate(R.layout.cell_pets_recycler_view, viewGroup, false);
         PetsViewHolder viewHolder = new PetsViewHolder(cellInflated);
-
         return viewHolder;
     }
 
@@ -46,6 +47,8 @@ public class AdapterPetsList extends RecyclerView.Adapter {
         return petList.size();
     }
 
+
+    //Borro la lista y la actualizo con la nueva pasada por parametro
     public void updatePetsList(List<Pet> petListUpdate) {
         petList.clear();
         petList.addAll(petListUpdate);
@@ -60,19 +63,31 @@ public class AdapterPetsList extends RecyclerView.Adapter {
             super(itemView);
             textViewNameUpdate = itemView.findViewById(R.id.textViewNameUpdate);
             textViewIdUpdate = itemView.findViewById(R.id.textViewIdUpdate);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String id = petList.get(getAdapterPosition()).getId();
-                    petSelectedInterface.petClick(id);
-                }
-            });
+            itemView.setOnClickListener(onClickListener);
         }
 
+        //Cargo los datos en la celda si no son nulos ni vacios
         public void loadPetsData(Pet pet) {
-            textViewNameUpdate.setText(pet.getName());
-            textViewIdUpdate.setText(pet.getId());
+            if(pet.getName() != null && !pet.getName().isEmpty()){
+                textViewNameUpdate.setText(pet.getName());
+            }else {
+                textViewNameUpdate.setText(context.getResources().getString(R.string.unnamed));
+            }
+            if(pet.getId() != null && !pet.getId().isEmpty()){
+                textViewIdUpdate.setText(pet.getId());
+            }else {
+                textViewIdUpdate.setText(context.getResources().getString(R.string.withoutId));
+            }
         }
+
+        //Listener de la celda
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = petList.get(getAdapterPosition()).getId();
+                petSelectedInterface.petClick(id);
+            }
+        };
     }
 
     public interface PetSelectedInterface {
