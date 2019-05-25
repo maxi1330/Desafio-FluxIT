@@ -46,9 +46,17 @@ public class FragmentPetDetail extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             String name = bundle.getString(Constants.KEY_PET_NAME);
-            textViewName.setText(name);
+            if(name != null && !name.equals("")){
+                textViewName.setText(name);
+            }else {
+                textViewName.setText(getContext().getResources().getString(R.string.unnamed));
+            }
             String id = bundle.getString(Constants.KEY_PET_ID);
-            textViewId.setText(String.valueOf(id));
+            if(id != null && !id.equals("")){
+                textViewId.setText(id);
+            }else {
+                textViewName.setText(getContext().getResources().getString(R.string.withoutId));
+            }
         }
 
         return v;

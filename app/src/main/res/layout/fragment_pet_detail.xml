@@ -60,6 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
@@ -96,6 +97,7 @@
                     android:id="@+id/textViewId"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
                     android:textSize="20dp"
                     android:layout_gravity="center_horizontal" />
 
