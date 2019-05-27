@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(listenerBottomNavigation);
 
-        requestFindByStatus(id);
+        requestFindByID(id);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
-    //Llamo al controlador, solicitando la mascota, creo el fragmentoDetalle y lo muestro.
-    private void requestFindByStatus(String id){
+    //Llamo al controlador, solicitando la mascota, creo el fragmentPetDetail y lo muestro.
+    private void requestFindByID(String id){
         progressBarDetailActivity.setVisibility(View.VISIBLE);
         ListenerCustom<Pet> listenerView = new ListenerCustom<Pet>() {
             @Override

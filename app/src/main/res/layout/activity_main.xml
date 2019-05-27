@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/back"
@@ -22,7 +22,7 @@
                 android:id="@+id/recyclerViewPetsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/margin5"
                 android:background="@android:color/transparent"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
@@ -32,8 +32,8 @@
     <ProgressBar
         android:id="@+id/progressBarMainActivity"
         android:visibility="gone"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/width100"
+        android:layout_height="@dimen/height100"
         android:layout_gravity="center" />
 
 </android.support.design.widget.CoordinatorLayout>

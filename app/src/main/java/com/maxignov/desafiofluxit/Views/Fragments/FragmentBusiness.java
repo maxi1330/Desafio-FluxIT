@@ -1,6 +1,5 @@
 package com.maxignov.desafiofluxit.Views.Fragments;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -28,9 +27,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.maxignov.desafiofluxit.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentBusiness extends Fragment implements OnMapReadyCallback {
     private GoogleMap gMap;
     private MapView mapView;
@@ -38,7 +34,6 @@ public class FragmentBusiness extends Fragment implements OnMapReadyCallback {
     private static final int LOCATION_REQUEST_CODE = 1;
 
     public FragmentBusiness() {
-        // Required empty public constructor
     }
 
     @Override

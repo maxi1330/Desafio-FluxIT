@@ -13,15 +13,18 @@ import com.maxignov.desafiofluxit.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterPetsList extends RecyclerView.Adapter {
-    private List<Pet> petList;
+    private List<Pet> petList;  //Lista completa con todas las mascotas
+    private List<Pet> petListFilter;    //Lista que se muestra con los datos filtrados
     private PetSelectedInterface petSelectedInterface;
     private Context context;
 
     public AdapterPetsList(PetSelectedInterface petSelectedInterface, Context context) {
         this.petSelectedInterface = petSelectedInterface;
         petList = new ArrayList<>();
+        petListFilter = new ArrayList<>();
         this.context = context;
     }
 
@@ -37,21 +40,46 @@ public class AdapterPetsList extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        Pet pet = petList.get(i);
+        Pet pet = petListFilter.get(i);
         PetsViewHolder petsViewHolder = (PetsViewHolder) viewHolder;
         petsViewHolder.loadPetsData(pet);
     }
 
     @Override
     public int getItemCount() {
-        return petList.size();
+        return petListFilter.size();
     }
 
 
     //Borro la lista y la actualizo con la nueva pasada por parametro
-    public void updatePetsList(List<Pet> petListUpdate) {
+    //Filtro los que tienen nombre nulo y los saco de la lista
+    public void updatePetsList(List<Pet> petListUpdated) {
+        petListFilter.clear();
+        for (Pet pet : petListUpdated) {
+            if (pet.getName() != null) {
+                petListFilter.add(pet);
+            }
+        }
+
+        //Lista auxiliar completa
         petList.clear();
-        petList.addAll(petListUpdate);
+        petList.addAll(petListFilter);
+        notifyDataSetChanged();
+    }
+
+    //Filtra los datos segun texto que entra por parametro
+    public void filterList(String filterText) {
+        filterText = filterText.toLowerCase(Locale.getDefault());
+        petListFilter.clear();
+        if (filterText.length() == 0) {
+            petListFilter.addAll(petList);
+        } else {
+            for (Pet pet : petList) {
+                if (pet.getName().toLowerCase(Locale.getDefault()).contains(filterText)) {
+                    petListFilter.add(pet);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -84,7 +112,7 @@ public class AdapterPetsList extends RecyclerView.Adapter {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = petList.get(getAdapterPosition()).getId();
+                String id = petListFilter.get(getAdapterPosition()).getId();
                 petSelectedInterface.petClick(id);
             }
         };

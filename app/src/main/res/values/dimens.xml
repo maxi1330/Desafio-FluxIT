@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin3">3dp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="marginEnd10">10dp</dimen>
+    <dimen name="marginEnd20">20dp</dimen>
+    <dimen name="marginBottom8">8dp</dimen>
+    <dimen name="marginBottom10">10dp</dimen>
+    <dimen name="marginBottom56">56dp</dimen>
+    <dimen name="marginTop8">8dp</dimen>
+    <dimen name="marginStart10">10dp</dimen>
+    <dimen name="marginStart20">20dp</dimen>
+    <dimen name="width0">0dp</dimen>
+    <dimen name="width60">60dp</dimen>
+    <dimen name="width100">100dp</dimen>
+    <dimen name="height60">60dp</dimen>
+    <dimen name="height100">100dp</dimen>
+    <dimen name="height200">200dp</dimen>
+    <dimen name="cornerRadius8">8dp</dimen>
+    <dimen name="cornerRadius10">10dp</dimen>
+    <dimen name="cardElevation5">5dp</dimen>
+    <dimen name="textSize20">20sp</dimen>
+    <dimen name="textSize30">30sp</dimen>
+</resources>

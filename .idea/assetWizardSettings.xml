@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_store_mall_directory_black_24dp" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_store_mall_directory_white_24dp" />
                             <entry key="sourceFile" value="C:\Users\MaxiG" />
                           </map>
                         </option>

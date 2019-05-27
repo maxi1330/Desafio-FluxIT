@@ -1,14 +1,13 @@
 <android.support.v7.widget.CardView
     android:alpha="0.9"
     android:id="@+id/fragmentDetail"
-    android:background="#00FFFFFF"
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    card_view:cardCornerRadius="10dp">
+    android:layout_margin="@dimen/margin20"
+    card_view:cardCornerRadius="@dimen/cornerRadius10">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,9 +17,9 @@
         <ImageView
             android:id="@+id/imageViewPetDetail"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="@dimen/height200"
+            android:layout_marginTop="@dimen/marginTop8"
+            android:layout_marginBottom="@dimen/marginBottom8"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_pets_black_24dp"
             card_view:layout_constraintBottom_toTopOf="@id/itemTextView"
@@ -33,8 +32,8 @@
             android:id="@+id/itemTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/marginTop8"
+            android:layout_marginBottom="@dimen/marginBottom8"
             card_view:layout_constraintBottom_toTopOf="@id/itemTextView2"
             card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintRight_toRightOf="parent"
@@ -43,8 +42,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="@dimen/marginStart10"
+                android:layout_marginEnd="@dimen/marginEnd10"
                 android:orientation="vertical">
 
                 <TextView
@@ -52,15 +51,15 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/namePet"
-                    android:textSize="30dp"
+                    android:textSize="@dimen/textSize30"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:textSize="@dimen/textSize20"
+                    android:layout_marginBottom="@dimen/marginBottom10"
                     android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
@@ -72,7 +71,7 @@
             android:id="@+id/itemTextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/marginTop8"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintRight_toRightOf="parent"
@@ -81,8 +80,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="@dimen/marginStart20"
+                android:layout_marginEnd="@dimen/marginEnd20"
                 android:orientation="vertical">
 
                 <TextView
@@ -90,15 +89,15 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/idPet"
-                    android:textSize="30dp"
+                    android:textSize="@dimen/textSize30"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewId"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="20dp"
+                    android:layout_marginBottom="@dimen/marginBottom10"
+                    android:textSize="@dimen/textSize30"
                     android:layout_gravity="center_horizontal" />
 
             </LinearLayout>

@@ -7,11 +7,17 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
-
 import com.maxignov.desafiofluxit.Adapters.AdapterPetsList;
 import com.maxignov.desafiofluxit.Utils.Constants;
 import com.maxignov.desafiofluxit.Controller.ControllerPets;
@@ -27,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements AdapterPetsList.P
     private Toolbar toolbar;
     private ControllerPets controllerPets;
     private View parent_view;
+    private MenuItem mSearch;
+    private SearchView mSearchView;
     private ProgressBar progressBarMainActivity;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -36,19 +44,36 @@ public class MainActivity extends AppCompatActivity implements AdapterPetsList.P
         setContentView(R.layout.activity_main);
         initViews();
         controllerPets = new ControllerPets(this);
-
-        //Seteos del recyclerView
-        adapterPetsList = new AdapterPetsList(this,this);
-        recyclerViewPetsList.setAdapter(adapterPetsList);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        recyclerViewPetsList.setLayoutManager(layoutManager);
-        recyclerViewPetsList.setHasFixedSize(true);
+        initRecyclerView();
 
         setToolbar();
         updatePetList();
 
         swipeRefreshLayout.setOnRefreshListener(refreshListener);
+    }
 
+    //Listener del searchView
+    SearchView.OnQueryTextListener onQueryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String s) {
+            return false;
+        }
+
+        //Cuando cambia el texto, se lo envio al adapter
+        @Override
+        public boolean onQueryTextChange(String s) {
+            adapterPetsList.filterList(s);
+            return true;
+        }
+    };
+
+    //Inicializa el recyclerView
+    private void initRecyclerView(){
+        adapterPetsList = new AdapterPetsList(this,this);
+        recyclerViewPetsList.setAdapter(adapterPetsList);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerViewPetsList.setLayoutManager(layoutManager);
+        recyclerViewPetsList.setHasFixedSize(true);
     }
 
     //Setea los datos por defecto de la toolbar
@@ -56,6 +81,15 @@ public class MainActivity extends AppCompatActivity implements AdapterPetsList.P
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitle(getResources().getString(R.string.titleDefaultToolbar));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_items,menu);
+        mSearch = menu.findItem(R.id.searchView);
+        mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setOnQueryTextListener(onQueryTextListener);
+        return super.onCreateOptionsMenu(menu);
     }
 
     //Listener del swipeRefresh, al accionarlo pido llamo al servicio nuevamente y actualizo la lista
@@ -72,8 +106,15 @@ public class MainActivity extends AppCompatActivity implements AdapterPetsList.P
         ListenerCustom<List<Pet>> listenerView = new ListenerCustom<List<Pet>>() {
             @Override
             public void finish(List<Pet> response) {
-                progressBarMainActivity.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+                //Si se esta mostrando la progressBar la oculto
+                if(progressBarMainActivity.isShown()){
+                    progressBarMainActivity.setVisibility(View.GONE);
+                }
+                //Si se esta mostrando el swipeResfresh la oculto
+                if(swipeRefreshLayout.isShown()){
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+
                 if (response != null) {
                     if (response.size() <= 0) {
                         Snackbar.make(parent_view, getResources().getString(R.string.messageTryAgain), Snackbar.LENGTH_LONG).show();

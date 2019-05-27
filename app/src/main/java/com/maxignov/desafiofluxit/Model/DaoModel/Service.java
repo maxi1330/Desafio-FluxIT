@@ -11,8 +11,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface Service {
-
-    @Headers({"Accept: application/json" })
+    //Modifico headers para que llegue un json
+    @Headers({"Accept: application/json"})
 
     @GET("pet/findByStatus?")
     Call<List<Pet>> getPetListByStatus(@Query("status") String status);

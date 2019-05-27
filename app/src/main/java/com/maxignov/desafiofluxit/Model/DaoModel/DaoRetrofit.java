@@ -1,10 +1,8 @@
 package com.maxignov.desafiofluxit.Model.DaoModel;
 
 import android.util.Log;
-
 import com.maxignov.desafiofluxit.Utils.ListenerCustom;
 import com.maxignov.desafiofluxit.Model.PojoModel.Pet;
-
 import java.util.List;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -18,17 +16,19 @@ public class DaoRetrofit {
     private Retrofit retrofit;
     private Service service;
 
+    private String baseURL = "https://petstore.swagger.io/v2/";
+
     public DaoRetrofit(){
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://petstore.swagger.io/v2/")
+                .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create());
         retrofit = builder.client(httpClient.build()).build();
         service = retrofit.create(Service.class);
     }
 
-    //Llamamo al servicio y solicito las mascotas por estado
+    //Llamo al servicio y solicito las mascotas por estado
     public void getPetFindByStatus(final ListenerCustom<List<Pet>> listenerController, String status){
         Call<List<Pet>> call = service.getPetListByStatus(status);
         call.enqueue(new Callback<List<Pet>>() {
@@ -50,7 +50,7 @@ public class DaoRetrofit {
         });
     }
 
-    //Llamamo al servicio y solicito las mascotas por ID
+    //Llamo al servicio y solicito las mascotas por ID
     public void getPetFindById(final ListenerCustom<Pet> listenerController, String id){
         Call<Pet> retrofitListener = service.getPetId(id);
         retrofitListener.enqueue(new Callback<Pet>() {
